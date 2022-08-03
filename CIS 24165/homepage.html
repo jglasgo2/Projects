@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<title>
+    Protein Powder Comparison
+</title>
+<header style="padding: 20px; text-align: center; background-color: dimgrey; color: white; font-size: large;">
+<h1>Protein Powder Comparison</h1>
+</header>
+<div style="background-color: #333; overflow: hidden;">
+    <a style="float: left; color: #f2f2f2; text-align: center; padding: 14px 16px; text-decoration: none; font-size: 17px; "href="bodyfortress.html">Body Fortress</a>
+    <a style="float: left; color: #f2f2f2; text-align: center; padding: 14px 16px; text-decoration: none; font-size: 17px; " href="gncamp.html">GNC AMP</a>
+    <a style="float: left; color: #f2f2f2; text-align: center; padding: 14px 16px; text-decoration: none; font-size: 17px; " href="vedge.html">Vedge</a>
+    <a style="float: left; color: #f2f2f2; text-align: center; padding: 14px 16px; text-decoration: none; font-size: 17px; " href="orgain.html">Orgain</a>
+</div>
+<br>
+<br>
+<body id="test" style="background-color: dimgray; padding: 2%;">
+    
+    <table id="protein" 
+            style="box-sizing: border-box; 
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            border-radius: 10px;
+            font-size: 20px;
+            font-weight: normal;
+            border: none;
+            border-collapse: collapse;
+            width: 100%;
+            max-width: 100%;
+            background-color: white;
+            color:black;
+            text-align: center;">
+    </table>
+    <form>
+        <p>Enter the price of the protein</p>
+        <input type="number" name="num1" id="num1">
+        
+        <p>Enter the quantity</p>
+        <input type="number" name="num2" id="num2"> 
+        <p></p>
+        <input type="button" id="multiply" name="multiply" onclick="multiply()" value="Multiply">
+        <p></p>
+        <input type="text" id="answer" value="Total">
+        <p></p>
+    </form>
+    <script>
+        function multiply() {
+        var num1 = parseInt(document.getElementById('num1').value);
+        var num2 = parseInt(document.getElementById('num2').value);
+        var result = num1 * num2;
+
+        document.getElementById('answer').value = result.toPrecision(4);
+        }
+
+        fetch('https://raw.githubusercontent.com/jglasgo2/CloudSystemsComputing/main/Final%20Project/protein_powder.json')
+          .then(response => response.json())
+          .then(data => processData(data));
+
+        function processData(data){
+          var obj = data;
+
+          text = "<tr><th>Brand</th><th>Flavor</th><th>Price</th><th>Calories</th><th>Protein</th><th>Organic</th><th>Vegan</th></tr>"
+
+          for (let i = 0; i < obj.length; i++) {
+            text = text + "<tr>"
+         
+            text = text + "<td>" + obj[i].brand + "</td>"
+            text = text + "<td>" + obj[i].flavor + "</td>"
+            text = text + "<td>" + obj[i].price + "</td>"
+            text = text + "<td>" + obj[i].calories + "</td>"
+            text = text + "<td>" + obj[i].protein + "</td>"
+            text = text + "<td>" + obj[i].organic + "</td>"
+            text = text + "<td>" + obj[i].vegan + "</td>"
+
+            text = text + "</tr>"
+            }   
+        document.getElementById("protein").innerHTML = text;
+        }
+
+        
+    </script>
